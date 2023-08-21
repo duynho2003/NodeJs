@@ -19,3 +19,6 @@ app.get("/",function(req,res){
 app.get("/dang-nhap",function(req,res){
     res.render("dangnhap")
 });
+app.get("/dang-ky",function(req,res){
+    res.render("dangky")
+});
