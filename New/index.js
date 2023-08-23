@@ -37,8 +37,17 @@ app.get("/dang-nhap",function(req,res){
 app.post("/form-dang-nhap",function(req,res){
     console.log(req.body.email);
     console.log(req.body.password);
-
-    res.redirect("/")
+    db.connection('users').findOne({email:req.body.email},(err,data)=>{
+        if(data==null){
+            console.log("no have data");
+        }
+        if(data.password==req.body.password){
+            console.log("dang nhap thanh cong");
+            res.redirect("/");
+        }else{
+            res.redirect("/dang-nhap");
+        }
+    });
 });
 
 app.get("/dang-ky",function(req,res){
@@ -46,9 +55,17 @@ app.get("/dang-ky",function(req,res){
     res.render("dangky")
 });
 app.post("/form-dang-ky",function(req,res){
-    console.log(req.body.username);
-    console.log(req.body.email);
-    console.log(req.body.password);
-
+    var data={
+        'username': req.body.username,
+        'email': req.body.email,
+        'password': req.body.password
+    }
+    db.collection('users').insertOne(data,(err,collection)=>{
+        if(err){
+            // console.log("loi");
+            throw err;
+        }
+        console.log("insert ok");
+    });
     res.redirect("/dang-nhap");
 });
