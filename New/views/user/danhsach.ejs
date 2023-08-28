@@ -9,6 +9,7 @@
           </th>
           <th scope="col">Email</th>
           <th scope="col">Edit</th>
+          
         </tr>
       </thead>
       <tbody>
@@ -18,8 +19,8 @@
           <td><%= row.username %></td>
           <td><%= row.email %></td>
           <td>
-            <a href="/user-sua">Sửa thành viên</a> |
-            <a href="/user-xoa">Xóa thành viên</a>
+            <a href="/user-sua/<%= row.id%>">Sửa thành viên</a> |
+            <a href="/user-xoa/<%= row.id%>">Xóa thành viên</a>
           </td>
         </tr>
         <% }) %>
