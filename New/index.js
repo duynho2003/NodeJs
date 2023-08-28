@@ -13,6 +13,7 @@ app.listen(port);
 //goi router
 app.use("",require("./router/router"));
 
+
 //ket noi database
 let mongoose=require("mongoose");
 mongoose.connect('mongodb://127.0.0.1:27017/mahoa',{

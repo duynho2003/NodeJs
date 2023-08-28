@@ -1,14 +1,14 @@
 const mongoose=require("mongoose");
-const UserSchema=new mongoose.Schema({
-    username:{
-        type:String,
-        require: true,
-    },
-    email:{
+const SanphamSchema=new mongoose.Schema({
+    tensp:{
         type: String,
         require: true,
     },
-    password:{
+    hinh:{
+        type: String,
+        require: true,
+    },
+    giasp:{
         type: String,
         require: true,
     },
