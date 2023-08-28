@@ -35,17 +35,21 @@ app.get("/dang-nhap",function(req,res){
     res.render("dangnhap");
 });
 app.post("/form-dang-nhap",function(req,res){
-    db.collection('users').findOne({email:req.body.email},(err,data)=>{
-        if(data==null){
-            console.log("no have data");
-        }
-        if(data.password==req.body.password){
-            console.log("dang nhap thanh cong");
-            res.redirect("/");
-        }else{
-            res.redirect("/dang-nhap");
-        }
-    });
+    if(req.body.email=="" && req.body.password=="" ){
+        res.redirect("/dang-nhap");
+    }else{
+        db.collection('users').findOne({email:req.body.email},(err,data)=>{
+            if(data==null){
+                res.redirect("/");
+            }
+            if(data.password==req.body.password){
+                console.log("dang nhap thanh cong");
+                res.redirect("/");
+            }else{
+                res.redirect("/dang-nhap");
+            }
+        });
+    }
 });
 
 app.get("/dang-ky",function(req,res){
