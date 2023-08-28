@@ -16,9 +16,20 @@ router.get("/user",function(req,res){
         });
     });
 });
-
-
-
+router.get("/user-them",function(req,res){
+        res.render("user/them");
+});
+router.post("/user-them-form",function(req,res){
+    const datathem=new User({
+        username: req.body.username,//req.body.username du lieu the input username tu form them.ejs
+        email:req.body.email,//req.body.email du lieu the input email tu form them.ejs
+        password:req.body.password, //req.body.password du lieu the input email tu form them.ejs
+    });
+    datathem.save().then(()=>{
+        console.log("them ok");
+    });
+    res.redirect("/user");
+});
 
 
 

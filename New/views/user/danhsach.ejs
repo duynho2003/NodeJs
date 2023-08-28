@@ -3,9 +3,11 @@
   <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First (<a href="/user-add" class="link-secondary">Thêm</a>)</th>
-          <th scope="col">Last</th>
+          <th scope="col">ID</th>
+          <th scope="col">Username
+            (<a href="/user-them">Thêm thành viên</a>)
+          </th>
+          <th scope="col">Email</th>
           <th scope="col">Edit</th>
         </tr>
       </thead>
@@ -16,8 +18,8 @@
           <td><%= row.username %></td>
           <td><%= row.email %></td>
           <td>
-              <a href="/user-sua/<%= row._id %>" class="link-secondary">Sửa</a> | 
-              <a href="/user-xoa/<%= row._id %>" class="link-secondary">Xóa</a>
+            <a href="/user-sua">Sửa thành viên</a> |
+            <a href="/user-xoa">Xóa thành viên</a>
           </td>
         </tr>
         <% }) %>
