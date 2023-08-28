@@ -53,7 +53,9 @@ app.post("/form-dang-nhap",function(req,res){
 
 app.get("/dang-ky",function(req,res){
 
-    res.render("dangky");
+    res.render("dangky",{
+        title:'Đăng ký'
+    });
 });
 app.post("/form-dang-ky",function(req,res){
     var data={
