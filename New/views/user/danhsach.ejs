@@ -1,30 +1,29 @@
 <div class="container pt-5 pb-5">
-  <% if(ds !=""){ %>
-  <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Username
-            (<a href="/user-them">Thêm thành viên</a>)
-          </th>
-          <th scope="col">Email</th>
-          <th scope="col">Edit</th>
-          
-        </tr>
-      </thead>
-      <tbody>
+    <% if(ds !=""){ %>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID </th>
+            <th scope="col">Username 
+                 (<a href="/user-them">Thêm Thành viên</a>) 
+            </th>
+            <th scope="col">Email</th>
+            <th scope="col">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
         <% ds.forEach((row,index)=>{ %>
-        <tr>
-          <th scope="row"><%= row._id %></th>
-          <td><%= row.username %></td>
-          <td><%= row.email %></td>
-          <td>
-            <a href="/user-sua/<%= row.id%>">Sửa thành viên</a> |
-            <a href="/user-xoa/<%= row.id%>">Xóa thành viên</a>
-          </td>
-        </tr>
-        <% }) %>
-      </tbody>
-  </table>
-  <% } %>
+          <tr>
+            <th scope="row"><%= row.id %></th>
+            <td><%= row.username %></td>
+            <td><%= row.email %></td>
+            <td>
+                <a href="/user-sua/<%= row.id %>">Sửa Thành viên</a>  | 
+                <a href="/user-xoa/<%= row.id %>">Xóa Thành viên</a>
+            </td>
+          </tr>
+          <% }) %> 
+        </tbody>
+    </table>
+    <% } %>
 </div>
