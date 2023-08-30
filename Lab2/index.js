@@ -7,10 +7,14 @@ app.set("view engine","ejs");
 app.set("views","./views");
 app.listen(port);
 
-app.get("/",function(res,req){
+//call module
+const md=require("./lib_module/first_module");
+console.log(md);
+
+app.get("/",function(req,res){
     res.render("home");
 });
 
-app.get("/test",function(res,req){
+app.get("/test",function(req,res){
     res.render("test");
 });
