@@ -10,4 +10,4 @@ function nhan(x,y){
 function chia(x,y){
     return x/y;
 }
-module.exports = {cong, tru, nhan, chia};
+module.exports={cong,tru,nhan,chia};
