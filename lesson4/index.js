@@ -10,11 +10,13 @@ app.use(express.urlencoded({extended:true}));
 app.listen(port,()=>{
     console.log("web running: "+port);
 });
+// goi router table post
+app.use("",require("./router/post"));
 //ket noi database
 let mongoose=require("mongoose");
 mongoose.connect("mongodb://127.0.0.1:27017/api",{
     useNewUrlParser: true,
-    useUnifedTopology: true,
+    useUnifiedTopology: true,
 });
 let db=mongoose.connection;
 db.on("error",()=>{
