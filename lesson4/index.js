@@ -8,7 +8,7 @@ app.set("views","./view");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.listen(port,()=>{
-    console.log("web running: "+port);
+    console.log("Web running port: "+port);
 });
 // goi router table post
 app.use("",require("./router/post"));
