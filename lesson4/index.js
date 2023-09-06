@@ -1,28 +1,28 @@
-let express=require("express");
-let app=express();
-let port=3000;
+const express=require("express");
+const app=express();
+const port=3000;
 
 app.use(express.static("public"));
 app.set("view engine","ejs");
-app.set("views","./view");
+app.set("views","./views");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 // app.use(bodyParser.json());
 app.listen(port,()=>{
     console.log("Web running port: "+port);
 });
-// goi router table post
+//router
 app.use("",require("./router/post"));
-//ket noi database
-let mongoose=require("mongoose");
+//ket noi csdl
+const mongoose=require("mongoose");
 mongoose.connect("mongodb://127.0.0.1:27017/api",{
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useUnifiedTopology:true
 });
-let db=mongoose.connection;
+const db=mongoose.connection;
 db.on("error",()=>{
-    console.log("loi ket noi");
+    console.log("Loi ket noi");
 });
 db.once("open",()=>{
-    console.log("ket noi thanh cong");
+    console.log("Ket noi thanh cong");
 });
