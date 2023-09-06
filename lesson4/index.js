@@ -7,6 +7,7 @@ app.set("view engine","ejs");
 app.set("views","./view");
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+// app.use(bodyParser.json());
 app.listen(port,()=>{
     console.log("Web running port: "+port);
 });

@@ -15,8 +15,8 @@ router.post("/post",async(req,res)=>{
         des:req.body.des,
     });
     try {
-        var savepost=await data.save();
-        res.json(savepost);
+        let savepost=await data.save();
+        res.json(savepost); 
     } catch (error) {
         res.json({message:error});
     }
