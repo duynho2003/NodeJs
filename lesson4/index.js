@@ -1,13 +1,14 @@
-function dongbo(){
-    console.log("1");
-    console.log("2");
-    console.log("3");
-}
-// dongbo();
+let express=require("express");
+let app=express();
+let port=3000;
 
-function khongdongbo(){
-    setTimeout(()=>console.log("1"),0); //ko quan tam
-    setTimeout(()=>console.log("2"),0); //ko
-    console.log("3");
-}
-khongdongbo();
+app.use(express.static("public"));
+app.set("view engine","ejs");
+app.set("views","./view");
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.listen(port,()=>{
+    console.log("web running: "+port);
+})
+//ket noi database
+let mongoose=require("mongoose");
