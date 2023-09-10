@@ -1,16 +1,16 @@
-const mongoose=require("mongoose");
-const PoseSchema=mongoose.Schema({
+let mongoose=require("mongoose");
+let PostSchema=mongoose.Schema({
     title:{
         type:String,
-        required: true,
+        required:true,
     },
     des:{
         type:String,
-        required: true,
+        required:true,
     },
     date:{
         type:String,
-        default: Date.now,
-    },
+        default:Date.now,
+    }
 });
-module.exports=mongoose.model("posts",PoseSchema);
+module.exports=mongoose.model("posts",PostSchema);

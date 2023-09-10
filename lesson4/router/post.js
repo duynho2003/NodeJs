@@ -17,7 +17,7 @@ router.get("/post",async(req,res)=>{
 router.get("/post/:id",async(req,res)=>{
     try {
         let data=await Post.find({_id:req.params.id});
-        res.json(data)
+        res.json(data);        
     } catch (error) {
         res.json({message:error});
     }
@@ -26,7 +26,7 @@ router.get("/post/:id",async(req,res)=>{
 router.put("/post/:id",async(req,res)=>{
     try {
         let data=await Post.find({_id:req.params.id});
-        res.json(data)
+        res.json(data);        
     } catch (error) {
         res.json({message:error});
     }
@@ -35,7 +35,7 @@ router.put("/post/:id",async(req,res)=>{
 router.delete("/post/:id",async(req,res)=>{
     try {
         let data=await Post.deleteOne({_id:req.params.id});
-        res.json(data)
+        res.json(data);        
     } catch (error) {
         res.json({message:error});
     }

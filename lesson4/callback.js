@@ -1,12 +1,12 @@
 var fs=require("fs");
-function readFile1(err, data){
+function readFile1(err,data){
     if(err){
         console.log(err);
     }
-    console.log("data of file");
+    console.log("data of file 1");
     console.log(data.toString());
 }
-function readFile2(err, data){
+function readFile2(err,data){
     if(err){
         console.log(err);
     }
@@ -15,10 +15,12 @@ function readFile2(err, data){
 }
 console.log("\n");
 console.log("Read file 1");
-fs.readFile("C:\\test\\file1.txt",readFile1);
+fs.readFile("C:\\test\\file1.txt",readFile1); // chay sau lenh Read file 1
 
 
 console.log("\n");
 console.log("Read file 2");
-fs.readFile("C:\\test\\file2.txt",readFile2);
+fs.readFile('C:\\test\\file2.txt',readFile2); // chay sau lenh Read file 2
 console.log("The end");
+
+
