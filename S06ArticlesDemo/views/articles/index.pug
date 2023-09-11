@@ -3,5 +3,21 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  
+  h1
+    a(href="/articles/create") Create New Article
+  div
+    form(action="/articles/search", method="get")
+        |Title
+        input(type="text", name="title")
+        input(type="submit", value="Search")
+    hr
+    div
+        table
+        thead 
+        tr
+        th Title
+            th Content
+            th Comment
+            th Create
+        tbody 
   
