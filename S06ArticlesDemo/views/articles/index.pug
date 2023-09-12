@@ -2,21 +2,38 @@ extends layout
 
 block content
   h1= title
+  h2= name
   p Welcome to #{title}
-  h1
-    a(href="/articles/create") Create New Article
-  div
+  h1 
+    a(href="/articles/create") Create New Article 
+  div 
     form(action="/articles/search", method="get")
-        |Title
+        |Title 
         input(type="text", name="title")
-        input(type="submit", value="Search")
-    hr
-    div
-        table
+        input(type="submit", name="search")
+  hr
+  div 
+    table 
         thead 
-        tr
-        th Title
-            th Content
-            th Comment
-            th Create
-    tbody 
+            tr 
+                th Title 
+                th Content
+                th Comment
+                th Create_at
+                th Action
+        tbody 
+            each item in articles
+                tr 
+                    td
+                        a(href="/articles/" + item._id)= item.title
+                    td= item.content 
+                    td 
+                    td= item.create_at 
+                    td 
+                        a(href="/articles/update/" + item._id) Update 
+                        br
+                        a(href="/articles/" + item._id) Delete
+
+
+
+  

@@ -2,19 +2,21 @@ extends layout
 
 block content
   h1= title
+  h2= name
   p Welcome to #{title}
-  h1
-    a(href="/articles") Back to List Article
-  div
+  h1 
+    a(href="/articles") Back To List Article
+  div 
     form(action="/articles/create", method="post")
-        |Title
+        |Title 
         input(type="text", name="title")
-        br
-        br
-        |Content
+        br 
+        |Content 
         textarea(name="content", cols="80", rows="10") 
         br
         br
-        input(type="submit", value="Create")
-    
+        input(type="submit", name="Create")
+  hr
+  
+                
   
