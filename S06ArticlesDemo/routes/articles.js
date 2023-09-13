@@ -8,6 +8,33 @@ router.get('/', async function(req, res, next) {
   console.log(articles);
   res.render('articles/index', { title: 'List Articles', articles: articles});
 });
+
+/* GET Edit page. */
+router.get('/edit/:id', async function(req, res, next){
+  const id = req.params.id;
+  const article = await ArticleModel.findById(id);
+  console.log(article);
+  res.render('articles/update', {title: 'Update Article', article: article});
+});
+
+/*POST Edit Article. */
+router.post('/edit/:id', async function(req, res, next){
+  //findOneandUpdate
+  //Update
+  const { title, content } = req.body;
+  const id = req.params.id;
+  const article = await ArticleModel.findById(id);
+  console.log("title: " + title);
+  console.log("content: " + content);
+  
+  article.title = title;
+  article.content = content;
+   
+  article.save();
+  
+  res.redirect("/articles");
+});
+
 /* GET Create page. */
 router.get('/create', function(req, res, next) {
  res.render('articles/create', {title: 'Create Article'})

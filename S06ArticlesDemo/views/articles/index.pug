@@ -19,7 +19,7 @@ block content
                 th Title 
                 th Content
                 th Comment
-                th Create_at
+                th Created_at
                 th Action
         tbody 
             each item in articles
@@ -27,10 +27,10 @@ block content
                     td
                         a(href="/articles/" + item._id)= item.title
                     td= item.content 
+                    td
+                    td= item.created_at 
                     td 
-                    td= item.create_at 
-                    td 
-                        a(href="/articles/update/" + item._id) Update 
+                        a(href="/articles/edit/" + item._id) Update 
                         br
                         a(href="/articles/" + item._id) Delete
 
