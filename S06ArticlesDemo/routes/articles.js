@@ -9,6 +9,13 @@ router.get('/', async function(req, res, next) {
   res.render('articles/index', { title: 'List Articles', articles: articles});
 });
 
+/* GET Delete page. */
+router.get('/delete/:id', async function(req, res, next){
+  const id = req.params.id;
+  await ArticleModel.findByIdAndDelete(id);
+  res.redirect("/articles");
+});
+
 /* GET Edit page. */
 router.get('/edit/:id', async function(req, res, next){
   const id = req.params.id;
