@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Comment = new mongoose.Schema({
-    content: { type: String, default: ''},
-    created_at: { type: Date, default: Date.now },
+  content: { type: String, default: "" },
+  created_at: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Article', Article);
+module.exports = mongoose.model('Comment', Comment);
