@@ -1,12 +1,34 @@
 var express = require('express');
 var router = express.Router();
 const ArticleModel = require('../models/article.model');
+const commentModel = require('../models/comment.model');
 
 /* GET List page. */
 router.get('/', async function(req, res, next) {
   const articles = await ArticleModel.find();
   console.log(articles);
   res.render('articles/index', { title: 'List Articles', articles: articles});
+});
+
+/* GET List Article. */
+router.get('/:id', async function(req, res, next) {
+  const id = req.params.id;
+  const article = await ArticleModel.findById(id).populate('comments');
+  console.log(article);
+  res.render('articles/view', {title: 'View Article', article: article});
+});
+
+/* POST Article for add comment. */
+router.post('/:id', async function(req, res, next) {
+  const id = req.params.id;
+  const commentContent = req.body.comment_content;
+  const article = await ArticleModel.findById(id);
+  console.log(id);
+  console.log(commentContent);
+  const newCommnet = new commentModel({ content: commentContent});
+  article.comments.push(newCommnet);
+  await article.save();
+  res.redirect('/articles/' + id);
 });
 
 /* GET Delete page. */

@@ -5,6 +5,8 @@ var express = require('express');
 var router = express.Router();
 
 var ArticleModel = require('../models/article.model');
+
+var commentModel = require('../models/comment.model');
 /* GET List page. */
 
 
@@ -32,9 +34,9 @@ router.get('/', function _callee(req, res, next) {
     }
   });
 });
-/* GET Edit page. */
+/* GET List Article. */
 
-router.get('/edit/:id', function _callee2(req, res, next) {
+router.get('/:id', function _callee2(req, res, next) {
   var id, article;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
@@ -42,13 +44,13 @@ router.get('/edit/:id', function _callee2(req, res, next) {
         case 0:
           id = req.params.id;
           _context2.next = 3;
-          return regeneratorRuntime.awrap(ArticleModel.findById(id));
+          return regeneratorRuntime.awrap(ArticleModel.findById(id).populate('comments'));
 
         case 3:
           article = _context2.sent;
           console.log(article);
-          res.render('articles/update', {
-            title: 'Update Article',
+          res.render('articles/view', {
+            title: 'View Article',
             article: article
           });
 
@@ -59,24 +61,107 @@ router.get('/edit/:id', function _callee2(req, res, next) {
     }
   });
 });
-/*POST Edit Article. */
+/* POST Article for add comment. */
 
-router.post('/edit/:id', function _callee3(req, res, next) {
-  var _req$body, title, content, id, article;
-
+router.post('/:id', function _callee3(req, res, next) {
+  var id, commentContent, article, newCommnet;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
         case 0:
-          //findOneandUpdate
-          //Update
-          _req$body = req.body, title = _req$body.title, content = _req$body.content;
           id = req.params.id;
+          commentContent = req.body.comment_content;
           _context3.next = 4;
           return regeneratorRuntime.awrap(ArticleModel.findById(id));
 
         case 4:
           article = _context3.sent;
+          console.log(id);
+          console.log(commentContent);
+          newCommnet = new commentModel({
+            content: commentContent
+          });
+          article.comments.push(newCommnet);
+          _context3.next = 11;
+          return regeneratorRuntime.awrap(article.save());
+
+        case 11:
+          res.redirect('/articles/' + id);
+
+        case 12:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  });
+});
+/* GET Delete page. */
+
+router.get('/delete/:id', function _callee4(req, res, next) {
+  var id;
+  return regeneratorRuntime.async(function _callee4$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          id = req.params.id;
+          _context4.next = 3;
+          return regeneratorRuntime.awrap(ArticleModel.findByIdAndDelete(id));
+
+        case 3:
+          res.redirect("/articles");
+
+        case 4:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  });
+});
+/* GET Edit page. */
+
+router.get('/edit/:id', function _callee5(req, res, next) {
+  var id, article;
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          id = req.params.id;
+          _context5.next = 3;
+          return regeneratorRuntime.awrap(ArticleModel.findById(id));
+
+        case 3:
+          article = _context5.sent;
+          console.log(article);
+          res.render('articles/update', {
+            title: 'Update Article',
+            article: article
+          });
+
+        case 6:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  });
+});
+/*POST Edit Article. */
+
+router.post('/edit/:id', function _callee6(req, res, next) {
+  var _req$body, title, content, id, article;
+
+  return regeneratorRuntime.async(function _callee6$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          //findOneandUpdate
+          //Update
+          _req$body = req.body, title = _req$body.title, content = _req$body.content;
+          id = req.params.id;
+          _context6.next = 4;
+          return regeneratorRuntime.awrap(ArticleModel.findById(id));
+
+        case 4:
+          article = _context6.sent;
           console.log("title: " + title);
           console.log("content: " + content);
           article.title = title;
@@ -86,7 +171,7 @@ router.post('/edit/:id', function _callee3(req, res, next) {
 
         case 11:
         case "end":
-          return _context3.stop();
+          return _context6.stop();
       }
     }
   });
