@@ -10,7 +10,7 @@ router.get('/', async function(req, res, next) {
   res.render('articles/index', { title: 'List Articles', articles: articles});
 });
 
-/* GET List Article. */
+/* GET View Article. */
 router.get('/:id', async function(req, res, next) {
   const id = req.params.id;
   const article = await ArticleModel.findById(id).populate('comments');
@@ -25,8 +25,9 @@ router.post('/:id', async function(req, res, next) {
   const article = await ArticleModel.findById(id);
   console.log(id);
   console.log(commentContent);
-  const newCommnet = new commentModel({ content: commentContent});
-  article.comments.push(newCommnet);
+  const newComment = new commentModel({ content: commentContent});
+  await newComment.save();
+  article.comments.push(newComment);
   await article.save();
   res.redirect('/articles/' + id);
 });

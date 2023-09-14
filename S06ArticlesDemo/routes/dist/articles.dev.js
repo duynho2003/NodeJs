@@ -34,7 +34,7 @@ router.get('/', function _callee(req, res, next) {
     }
   });
 });
-/* GET List Article. */
+/* GET View Article. */
 
 router.get('/:id', function _callee2(req, res, next) {
   var id, article;
@@ -64,7 +64,7 @@ router.get('/:id', function _callee2(req, res, next) {
 /* POST Article for add comment. */
 
 router.post('/:id', function _callee3(req, res, next) {
-  var id, commentContent, article, newCommnet;
+  var id, commentContent, article, newComment;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -78,17 +78,21 @@ router.post('/:id', function _callee3(req, res, next) {
           article = _context3.sent;
           console.log(id);
           console.log(commentContent);
-          newCommnet = new commentModel({
+          newComment = new commentModel({
             content: commentContent
           });
-          article.comments.push(newCommnet);
-          _context3.next = 11;
+          _context3.next = 10;
+          return regeneratorRuntime.awrap(newComment.save());
+
+        case 10:
+          article.comments.push(newComment);
+          _context3.next = 13;
           return regeneratorRuntime.awrap(article.save());
 
-        case 11:
+        case 13:
           res.redirect('/articles/' + id);
 
-        case 12:
+        case 14:
         case "end":
           return _context3.stop();
       }
