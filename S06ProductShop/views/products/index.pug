@@ -4,3 +4,35 @@ block content
   h1= title
   h2= name
   p Welcome to #{title}
+  h1 
+    a(href="/products/create") Create New Product 
+  div 
+    form(action="/products/search", method="get")
+        |Title 
+        input(type="text", name="title")
+        input(type="submit", name="search")
+  hr
+  div 
+    table 
+        thead 
+            tr 
+                th Name
+                th Price
+                th Image
+                th Action
+        tbody 
+            each item in products
+                tr 
+                    td= item.name 
+                    td
+                    td= item.price 
+                    td
+                    td= item.image 
+                    td
+                        a(href="/products/edit/" + item._id) Update 
+                        br
+                        a(href="/products/delete/" + item._id) Delete
+
+
+
+  
