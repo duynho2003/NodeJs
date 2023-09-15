@@ -24,20 +24,20 @@ const storage = multer.diskStorage({
 router.get('/', async function(req, res, next) {
   const products = await ProductModel.find();
   console.log(products);
-  res.render('products/index', { title: 'List product', products: products});
+  res.render('products/index', { title: 'Welcome to MY SHOP', products: products});
 });
 
 /* GET search home page. */
 router.get('/search', async function(req, res, next) {
   const { min, max } = req.query;
-  console.log('min ${min} -- max ${max}');
+  console.log(`min ${min} -- max ${max}`);
   let message = undefined;
-  if (min < max) {
-    message = 'Min cannot greater than Max';
+  if (min > max) {
+    message = 'Min can not greater Max';
   }
   const products = await ProductModel.find().where('price').gt(min).lt(max);
   console.log(products);
-  res.render('products/index', { title: 'Search', products: products});
+  res.render('products/index', { title: 'Search', products: products, message: message});
 });
 
 /* GET Create product. */
@@ -46,19 +46,19 @@ router.get('/create', function(req, res, next) {
 });
 
 /* POST Create product. */
-router.post('/create', upload.single('image'), async function (req, res, next) {
+router.post('/create', upload.single('image'), async function(req, res, next) {
   if (!req.file) {
-      const errorMessage = "No file uploaded";
-      return next(errorMessage);
+    const errorMessage = "No file uploaded";
+    return next(errorMessage);
   }
   //Save Product
-  let newProduct = new ProductModel({
-  name: req.body.name,
-  price: req.body.price,
-  image: req.file.filename,
-});
-await newProduct.save();
-return res.redirect('/products');
+  let model = new ProductModel({
+    name: req.body.name,
+    price: req.body.price,
+    image: req.file.filename,
+  });
+  await model.save();
+  return res.redirect("/products");
 });
 
 /* GET Delete page. */

@@ -41,7 +41,7 @@ router.get('/', function _callee(req, res, next) {
           products = _context.sent;
           console.log(products);
           res.render('products/index', {
-            title: 'List product',
+            title: 'Welcome to MY SHOP',
             products: products
           });
 
@@ -62,11 +62,11 @@ router.get('/search', function _callee2(req, res, next) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _req$query = req.query, min = _req$query.min, max = _req$query.max;
-          console.log('min ${min} -- max ${max}');
+          console.log("min ".concat(min, " -- max ").concat(max));
           message = undefined;
 
-          if (min < max) {
-            message = 'Min cannot greater than Max';
+          if (min > max) {
+            message = 'Min can not greater Max';
           }
 
           _context2.next = 6;
@@ -77,7 +77,8 @@ router.get('/search', function _callee2(req, res, next) {
           console.log(products);
           res.render('products/index', {
             title: 'Search',
-            products: products
+            products: products,
+            message: message
           });
 
         case 9:
@@ -97,7 +98,7 @@ router.get('/create', function (req, res, next) {
 /* POST Create product. */
 
 router.post('/create', upload.single('image'), function _callee3(req, res, next) {
-  var errorMessage, newProduct;
+  var errorMessage, model;
   return regeneratorRuntime.async(function _callee3$(_context3) {
     while (1) {
       switch (_context3.prev = _context3.next) {
@@ -112,16 +113,16 @@ router.post('/create', upload.single('image'), function _callee3(req, res, next)
 
         case 3:
           //Save Product
-          newProduct = new ProductModel({
+          model = new ProductModel({
             name: req.body.name,
             price: req.body.price,
             image: req.file.filename
           });
           _context3.next = 6;
-          return regeneratorRuntime.awrap(newProduct.save());
+          return regeneratorRuntime.awrap(model.save());
 
         case 6:
-          return _context3.abrupt("return", res.redirect('/products'));
+          return _context3.abrupt("return", res.redirect("/products"));
 
         case 7:
         case "end":
