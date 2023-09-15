@@ -31,9 +31,13 @@ router.get('/', async function(req, res, next) {
 router.get('/search', async function(req, res, next) {
   const { min, max } = req.query;
   console.log('min ${min} -- max ${max}');
-  const products = await ProductModel.find();
+  let message = undefined;
+  if (min < max) {
+    message = 'Min cannot greater than Max';
+  }
+  const products = await ProductModel.find().where('price').gt(min).lt(max);
   console.log(products);
-  res.render('products/index', { title: 'List product', products: products});
+  res.render('products/index', { title: 'Search', products: products});
 });
 
 /* GET Create product. */

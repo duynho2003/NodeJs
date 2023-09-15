@@ -55,7 +55,7 @@ router.get('/', function _callee(req, res, next) {
 /* GET search home page. */
 
 router.get('/search', function _callee2(req, res, next) {
-  var _req$query, min, max, products;
+  var _req$query, min, max, message, products;
 
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
@@ -63,18 +63,24 @@ router.get('/search', function _callee2(req, res, next) {
         case 0:
           _req$query = req.query, min = _req$query.min, max = _req$query.max;
           console.log('min ${min} -- max ${max}');
-          _context2.next = 4;
-          return regeneratorRuntime.awrap(ProductModel.find());
+          message = undefined;
 
-        case 4:
+          if (min < max) {
+            message = 'Min cannot greater than Max';
+          }
+
+          _context2.next = 6;
+          return regeneratorRuntime.awrap(ProductModel.find().where('price').gt(min).lt(max));
+
+        case 6:
           products = _context2.sent;
           console.log(products);
           res.render('products/index', {
-            title: 'List product',
+            title: 'Search',
             products: products
           });
 
-        case 7:
+        case 9:
         case "end":
           return _context2.stop();
       }

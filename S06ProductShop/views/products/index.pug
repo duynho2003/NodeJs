@@ -7,12 +7,14 @@ block content
   h1 
     a(href="/products/create") Create New Product 
   div 
-    form(action="/products/search", method="get")
-        |Min Price 
-        input(type="number", name="min")
-        |Max Price 
-        input(type="number", name="max")
-        input(type="submit", value="Search")
+    form(action="/products/search", method="get") 
+      |Min price 
+      input(type="number", name="min")
+      |Max price 
+      input(type="number", name="max") 
+      input(type="submit", value="Search")
+    if message 
+      p.error= message
   hr
   div 
     table 
@@ -26,11 +28,9 @@ block content
             each item in products
                 tr 
                     td= item.name 
-                    td
                     td= item.price 
-                    td
                     td 
-                      img(src="/images/" + item.image, alt="image", width="200" height="200")
+                      img(src="/images/" + item.image, alt="image", width="150" height="150")
                     td
                         a(href="/products/edit/" + item._id) Update 
                         br
