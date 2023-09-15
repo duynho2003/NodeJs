@@ -3,7 +3,7 @@
 var mongoose = require('mongoose'); // taoj schema product
 
 
-var Product = new mongoose.Schema({
+var Product = mongoose.Schema({
   name: {
     type: String,
     require: true
