@@ -8,9 +8,11 @@ block content
     a(href="/products/create") Create New Product 
   div 
     form(action="/products/search", method="get")
-        |Title 
-        input(type="text", name="title")
-        input(type="submit", name="search")
+        |Min Price 
+        input(type="number", name="min")
+        |Max Price 
+        input(type="number", name="max")
+        input(type="submit", value="Search")
   hr
   div 
     table 
@@ -27,7 +29,8 @@ block content
                     td
                     td= item.price 
                     td
-                    td= item.image 
+                    td 
+                      img(src="/images/" + item.image, alt="image", width="200" height="200")
                     td
                         a(href="/products/edit/" + item._id) Update 
                         br
