@@ -1,91 +1,94 @@
 var express = require('express');
 var router = express.Router();
 const ArticleModel = require('../models/article.model');
-const commentModel = require('../models/comment.model');
+const CommentModel = require('../models/comment.model');
 
-/* GET List page. */
+/* GET List Articles. */
 router.get('/', async function(req, res, next) {
   const articles = await ArticleModel.find();
   console.log(articles);
-  res.render('articles/index', { title: 'List Articles', articles: articles});
+  res.render('articles/index', { title: 'List Articles', articles: articles });
 });
 
-/* GET View Article. */
+/* GET List Articles. */
 router.get('/:id', async function(req, res, next) {
   const id = req.params.id;
   const article = await ArticleModel.findById(id).populate('comments');
   console.log(article);
-  res.render('articles/view', {title: 'View Article', article: article});
+  res.render('articles/view', {title: 'View Article', article: article });
 });
 
-/* POST Article for add comment. */
+/* POST Article for add comment */
 router.post('/:id', async function(req, res, next) {
   const id = req.params.id;
   const commentContent = req.body.comment_content;
   const article = await ArticleModel.findById(id);
   console.log(id);
   console.log(commentContent);
-  const newComment = new commentModel({ content: commentContent});
+  const newComment = new CommentModel({ content: commentContent});
   await newComment.save();
   article.comments.push(newComment);
   await article.save();
   res.redirect('/articles/' + id);
 });
 
-/* GET Delete page. */
-router.get('/delete/:id', async function(req, res, next){
+/* GET Delete Article. */
+router.get('/delete/:id', async function(req, res, next) {
   const id = req.params.id;
   await ArticleModel.findByIdAndDelete(id);
-  res.redirect("/articles");
+  res.redirect('/articles');
 });
 
-/* GET Edit page. */
-router.get('/edit/:id', async function(req, res, next){
+/* GET Edit Article. */
+router.get('/edit/:id', async function(req, res, next) {
   const id = req.params.id;
   const article = await ArticleModel.findById(id);
   console.log(article);
-  res.render('articles/update', {title: 'Update Article', article: article});
+  res.render('articles/update', {title: 'Update Article', article: article });
 });
 
-/*POST Edit Article. */
-router.post('/edit/:id', async function(req, res, next){
-  //findOneandUpdate
-  //Update
+/* POST Edit Article. */
+router.post('/edit/:id', async function(req, res, next) {
+  //findOneAndUpdate
+  //updateOne
   const { title, content } = req.body;
   const id = req.params.id;
   const article = await ArticleModel.findById(id);
   console.log("title: " + title);
   console.log("content: " + content);
-  
+
   article.title = title;
   article.content = content;
-   
+
   article.save();
-  
-  res.redirect("/articles");
+
+  res.redirect('/articles');
 });
 
-/* GET Create page. */
+
+
+/* GET Create Article. */
 router.get('/create', function(req, res, next) {
- res.render('articles/create', {title: 'Create Article'})
+  res.render('articles/create', {title: 'Create Article'});
 });
-/*POST Create Article. */
-router.post('/create', function(req, res, next){
-//To do: save article
-//  const title = req.body.title;
-//  const content = req.body.content;
- const { title, content } = req.body;
 
- console.log("title: " + title);
- console.log("content: " + content);
+/* POST Create Article. */
+router.post('/create', function(req, res, next) {
+  //To do: Save article
+  // const title = req.body.title;
+  // const content = req.body.content;
+  const { title, content } = req.body;
 
- let newArticle = ArticleModel({
-  title: title,
-  content: content
- });
- newArticle.save();
+  console.log("title: " + title);
+  console.log("content: " + content);
 
- res.redirect("/articles");
+  let newArticle = new ArticleModel({
+    title: title,
+    content: content
+  })
+  newArticle.save();
+
+  res.redirect('/articles');
 });
 
 module.exports = router;
