@@ -4,18 +4,16 @@ block content
   h1= title
   p Welcome to #{title}
   h1 
-    a(href="/articles") Back To List Article
+    a(href="/articles") Back to List Article 
   div 
-    form(action="/articles/edit/" + article.id, method="post")
-        |Title 
-        input(type="text", name="title", value=article.title)
-        br
-        br 
-        |Content 
-        textarea(name="content", cols="80", rows="10") #{article.content}
-        br
-        br
-        input(type="submit", name="Update")
-  
-                
-  
+    form(action="/articles/edit/" + article.id, method="post") 
+      |Title 
+      input(type="text", name='title', value=article.title)
+      br
+      br
+      |Content 
+      textarea(name="content", cols="80", rows="10") #{article.content}
+      br
+      br
+      input(type="submit", value="Update")
+

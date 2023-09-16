@@ -2,7 +2,6 @@ extends layout
 
 block content
   h1= title
-  h2= name
   p Welcome to #{title}
   h1 
     a(href="/products/create") Create New Product 
@@ -18,23 +17,24 @@ block content
   hr
   div 
     table 
-        thead 
-            tr 
-                th Name
-                th Price
-                th Image
-                th Action
-        tbody 
-            each item in products
-                tr 
-                    td= item.name 
-                    td= item.price 
-                    td 
-                      img(src="/images/" + item.image, alt="image", width="150" height="150")
-                    td
-                        a(href="/products/edit/" + item._id) Update 
-                        br
-                        a(href="/products/delete/" + item._id) Delete
+      thead 
+        tr 
+          th Name 
+          th Price 
+          th Image 
+          th Action
+      tbody 
+        each item in products
+          tr 
+            td 
+              a(href="/products/" + item.id) #{item.name} 
+            td= item.price 
+            td 
+              img(src="/images/" + item.image, alt="img_product", width='200px') 
+            td 
+              a(href="/products/edit/" + item.id) Update 
+              br
+              a(href="/products/delete/" + item.id) Delete 
 
 
 

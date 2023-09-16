@@ -4,31 +4,32 @@ block content
   h1= title
   p Welcome to #{title}
   h1 
-    a(href="/articles") Back To List Article
-  div
-    |Title:
-    h2= article.title
-    |Content:
-    p= article.content
-  div
-    a(href="/articles/edit/" + article._id) Update 
-    a(href="/articles/delete/" + article._id) Delete
+    a(href="/articles") Back to List Article 
   div 
+    |Title:
+    h2= article.title 
+    |Content:
+    p= article.content 
+  div 
+    a(href="/articles/edit/" + article.id) Update 
+    a(href="/articles/delete/" + article.id) Delete 
+  div
     |Comments:
-    table
-      thead
-        tr
+    table 
+      thead 
+        tr 
           th Comment 
           th Date
-        tbody
-          each item in article.comments 
-            tr 
-              td #{item.content}
-              td #{item.created_at}
+      tbody 
+        each item in article.comments
+          tr 
+            td #{item.content}
+            td #{item.created_at}
   hr
   div 
-  form(action='/articles/'+ article._id, method='post')
-    |New comment 
-    input(type='text' name='comment_content')
-    br
-    input(type='submit' value='Add comment')
+    form(action="/articles/" + article.id, method="post") 
+      |New comment 
+      input(type="text", name='comment_content')
+      br
+      input(type="submit", value="Add comment")
+
