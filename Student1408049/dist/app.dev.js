@@ -14,6 +14,8 @@ var indexRouter = require('./routes/index');
 
 var usersRouter = require('./routes/users');
 
+var mongoose = require("mongoose");
+
 var app = express();
 mongoose.connect("mongodb://127.0.0.1:27017/articlesdb"); // view engine setup
 
