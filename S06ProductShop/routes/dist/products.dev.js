@@ -52,6 +52,14 @@ router.get('/', function _callee(req, res, next) {
     }
   });
 });
+/* GET View Product. */
+// router.get('/:id', async function(req, res, next) {
+//   const id = req.params.id;
+//   const products = await ProductModel.findById(id);
+//   console.log(products);
+//   res.render('products/view', {title: 'View Products', products: products });
+// });
+
 /* GET search home page. */
 
 router.get('/search', function _callee2(req, res, next) {
@@ -149,6 +157,71 @@ router.get('/delete/:id', function _callee4(req, res, next) {
         case 4:
         case "end":
           return _context4.stop();
+      }
+    }
+  });
+});
+/* GET Edit Product. */
+
+router.get('/edit/:id', function _callee5(req, res, next) {
+  var id, products;
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          id = req.params.id;
+          _context5.next = 3;
+          return regeneratorRuntime.awrap(ProductModel.findById(id));
+
+        case 3:
+          products = _context5.sent;
+          console.log(products);
+          res.render('products/update', {
+            title: 'Update Product',
+            products: products
+          });
+
+        case 6:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  });
+});
+/* POST EDIT Product. */
+
+router.post('/edit/:id', upload.single('image'), function _callee6(req, res, next) {
+  var errorMessage, model;
+  return regeneratorRuntime.async(function _callee6$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          if (req.file) {
+            _context6.next = 3;
+            break;
+          }
+
+          errorMessage = "No file uploaded";
+          return _context6.abrupt("return", next(errorMessage));
+
+        case 3:
+          _context6.next = 5;
+          return regeneratorRuntime.awrap(ProductModel.findById(req.params.id));
+
+        case 5:
+          model = _context6.sent;
+          model.name = req.body.name;
+          model.price = req.body.price;
+          model.image = req.file.filename;
+          _context6.next = 11;
+          return regeneratorRuntime.awrap(model.save());
+
+        case 11:
+          return _context6.abrupt("return", res.redirect("/products"));
+
+        case 12:
+        case "end":
+          return _context6.stop();
       }
     }
   });

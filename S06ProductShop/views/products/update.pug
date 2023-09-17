@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  h1 
+    a(href="/products") Back to List Product 
+  div 
+    form(action="/products/edit/" + products.id, method="post", enctype="multipart/form-data") 
+      |Product name: 
+      input(type="text", name='name', value=products.name)
+      br
+      br
+      |Product price: 
+      input(type="number", name="price", value=products.price)
+      br
+      br
+      |Product image: 
+      input(type="file", name="image", value=products.image)
+      br
+      br
+      input(type="submit", value="Update")
+

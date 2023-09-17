@@ -27,6 +27,14 @@ router.get('/', async function(req, res, next) {
   res.render('products/index', { title: 'Welcome to MY SHOP', products: products});
 });
 
+/* GET View Product. */
+// router.get('/:id', async function(req, res, next) {
+//   const id = req.params.id;
+//   const products = await ProductModel.findById(id);
+//   console.log(products);
+//   res.render('products/view', {title: 'View Products', products: products });
+// });
+
 /* GET search home page. */
 router.get('/search', async function(req, res, next) {
   const { min, max } = req.query;
@@ -66,6 +74,29 @@ router.get('/delete/:id', async function(req, res, next){
   const id = req.params.id;
   await ProductModel.findByIdAndDelete(id);
   res.redirect("/products");
+});
+
+/* GET Edit Product. */
+router.get('/edit/:id', async function(req, res, next) {
+  const id = req.params.id;
+  const products = await ProductModel.findById(id);
+  console.log(products);
+  res.render('products/update', {title: 'Update Product', products: products });
+});
+
+/* POST EDIT Product. */
+router.post('/edit/:id', upload.single('image'), async function(req, res, next) {
+  if (!req.file) {
+    const errorMessage = "No file uploaded";
+    return next(errorMessage);
+  }
+  //Update Product
+  let model = await ProductModel.findById(req.params.id);
+  model.name = req.body.name;
+  model.price = req.body.price;
+  model.image = req.file.filename;
+  await model.save();
+  return res.redirect("/products");
 });
 
 module.exports = router;

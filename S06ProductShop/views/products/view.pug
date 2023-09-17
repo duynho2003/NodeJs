@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  h1 
+    a(href="/products") Back to List Product 
+  div 
+    |Name:
+    h2= products.name 
+    |Image:
+    br
+    img(src="/images/" + products.image, alt="img_product", width='200px')
+  div 
+    a(href="/products/edit/" + products.id) Update
+    br
+    br
+    a(href="/products/delete/" + products.id) Delete 
