@@ -10,6 +10,8 @@ block content
       |Title 
       input(type="text", name='title')
       input(type="submit", value="Search")
+      if message 
+      p.error= message
   hr
   div 
     table 
@@ -27,7 +29,7 @@ block content
               a(href="/articles/" + item.id) #{item.title} 
             td= item.content 
             td
-            td= item.create_at 
+            td= item.created_at 
             td 
               a(href="/articles/edit/" + item.id) Update 
               br

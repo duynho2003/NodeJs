@@ -6,8 +6,8 @@ var router = express.Router();
 
 var ArticleModel = require('../models/article.model');
 
-var commentModel = require('../models/comment.model');
-/* GET List page. */
+var CommentModel = require('../models/comment.model');
+/* GET List Articles. */
 
 
 router.get('/', function _callee(req, res, next) {
@@ -34,25 +34,44 @@ router.get('/', function _callee(req, res, next) {
     }
   });
 });
-/* GET View Article. */
+/* GET View Articles. */
+// router.get('/:id', async function(req, res, next) {
+//   const id = req.params.id;
+//   const article = await ArticleModel.findById(id).populate('comments');
+//   console.log(article);
+//   res.render('articles/view', {title: 'View Article', article: article });
+// });
 
-router.get('/:id', function _callee2(req, res, next) {
-  var id, article;
+/* GET search home page. */
+
+router.get('/search', function _callee2(req, res, next) {
+  var title, articles;
   return regeneratorRuntime.async(function _callee2$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
-          id = req.params.id;
+          title = req.query.title;
           _context2.next = 3;
-          return regeneratorRuntime.awrap(ArticleModel.findById(id).populate('comments'));
+          return regeneratorRuntime.awrap(ArticleModel.find({
+            title: title
+          }));
 
         case 3:
-          article = _context2.sent;
-          console.log(article);
-          res.render('articles/view', {
-            title: 'View Article',
-            article: article
-          });
+          articles = _context2.sent;
+          console.log(articles);
+
+          if (articles.length === 0) {
+            res.render('articles/index', {
+              title: 'Search',
+              articles: articles,
+              message: "No articles found."
+            });
+          } else {
+            res.render('articles/index', {
+              title: 'Search',
+              articles: articles
+            });
+          }
 
         case 6:
         case "end":
@@ -61,7 +80,7 @@ router.get('/:id', function _callee2(req, res, next) {
     }
   });
 });
-/* POST Article for add comment. */
+/* POST Article for add comment */
 
 router.post('/:id', function _callee3(req, res, next) {
   var id, commentContent, article, newComment;
@@ -78,7 +97,7 @@ router.post('/:id', function _callee3(req, res, next) {
           article = _context3.sent;
           console.log(id);
           console.log(commentContent);
-          newComment = new commentModel({
+          newComment = new CommentModel({
             content: commentContent
           });
           _context3.next = 10;
@@ -99,7 +118,7 @@ router.post('/:id', function _callee3(req, res, next) {
     }
   });
 });
-/* GET Delete page. */
+/* GET Delete Article. */
 
 router.get('/delete/:id', function _callee4(req, res, next) {
   var id;
@@ -112,7 +131,7 @@ router.get('/delete/:id', function _callee4(req, res, next) {
           return regeneratorRuntime.awrap(ArticleModel.findByIdAndDelete(id));
 
         case 3:
-          res.redirect("/articles");
+          res.redirect('/articles');
 
         case 4:
         case "end":
@@ -121,7 +140,7 @@ router.get('/delete/:id', function _callee4(req, res, next) {
     }
   });
 });
-/* GET Edit page. */
+/* GET Edit Article. */
 
 router.get('/edit/:id', function _callee5(req, res, next) {
   var id, article;
@@ -148,7 +167,7 @@ router.get('/edit/:id', function _callee5(req, res, next) {
     }
   });
 });
-/*POST Edit Article. */
+/* POST Edit Article. */
 
 router.post('/edit/:id', function _callee6(req, res, next) {
   var _req$body, title, content, id, article;
@@ -157,8 +176,8 @@ router.post('/edit/:id', function _callee6(req, res, next) {
     while (1) {
       switch (_context6.prev = _context6.next) {
         case 0:
-          //findOneandUpdate
-          //Update
+          //findOneAndUpdate
+          //updateOne
           _req$body = req.body, title = _req$body.title, content = _req$body.content;
           id = req.params.id;
           _context6.next = 4;
@@ -171,7 +190,7 @@ router.post('/edit/:id', function _callee6(req, res, next) {
           article.title = title;
           article.content = content;
           article.save();
-          res.redirect("/articles");
+          res.redirect('/articles');
 
         case 11:
         case "end":
@@ -180,29 +199,29 @@ router.post('/edit/:id', function _callee6(req, res, next) {
     }
   });
 });
-/* GET Create page. */
+/* GET Create Article. */
 
 router.get('/create', function (req, res, next) {
   res.render('articles/create', {
     title: 'Create Article'
   });
 });
-/*POST Create Article. */
+/* POST Create Article. */
 
 router.post('/create', function (req, res, next) {
-  //To do: save article
-  //  const title = req.body.title;
-  //  const content = req.body.content;
+  //To do: Save article
+  // const title = req.body.title;
+  // const content = req.body.content;
   var _req$body2 = req.body,
       title = _req$body2.title,
       content = _req$body2.content;
   console.log("title: " + title);
   console.log("content: " + content);
-  var newArticle = ArticleModel({
+  var newArticle = new ArticleModel({
     title: title,
     content: content
   });
   newArticle.save();
-  res.redirect("/articles");
+  res.redirect('/articles');
 });
 module.exports = router;

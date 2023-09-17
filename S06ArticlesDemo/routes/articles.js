@@ -10,12 +10,24 @@ router.get('/', async function(req, res, next) {
   res.render('articles/index', { title: 'List Articles', articles: articles });
 });
 
-/* GET List Articles. */
-router.get('/:id', async function(req, res, next) {
-  const id = req.params.id;
-  const article = await ArticleModel.findById(id).populate('comments');
-  console.log(article);
-  res.render('articles/view', {title: 'View Article', article: article });
+/* GET View Articles. */
+// router.get('/:id', async function(req, res, next) {
+//   const id = req.params.id;
+//   const article = await ArticleModel.findById(id).populate('comments');
+//   console.log(article);
+//   res.render('articles/view', {title: 'View Article', article: article });
+// });
+
+/* GET search home page. */
+router.get('/search', async function(req, res, next) {
+  const { title }= req.query;
+  const articles = await ArticleModel.find({title: title});
+  console.log(articles);
+  if (articles.length === 0) {
+    res.render('articles/index', { title: 'Search', articles: articles, message: "No articles found."});
+  } else {
+    res.render('articles/index', { title: 'Search', articles: articles});
+  }
 });
 
 /* POST Article for add comment */
@@ -64,8 +76,6 @@ router.post('/edit/:id', async function(req, res, next) {
 
   res.redirect('/articles');
 });
-
-
 
 /* GET Create Article. */
 router.get('/create', function(req, res, next) {
