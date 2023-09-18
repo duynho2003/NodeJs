@@ -1,0 +1,21 @@
+extends ../layout
+
+block content
+  a(href="/club/create") Clubs management
+  hr
+  h1= title
+  h1
+    table(style='width:100%', border='1')
+      thead 
+        tr 
+          th Name
+          th Values ($ Billions) 
+          th Function
+      tbody
+         each item in clubs
+          tr
+            th= item.name 
+            th= item.value
+            td 
+              a(href="/club/" + item.id) Details
+            

@@ -14,12 +14,12 @@ var indexRouter = require('./routes/index');
 
 var usersRouter = require('./routes/users');
 
-var testRouter = require('./routes/test');
+var clubRouter = require('./routes/club');
 
 var mongoose = require("mongoose");
 
 var app = express();
-mongoose.connect("mongodb://127.0.0.1:27017/articlesdb"); // view engine setup
+mongoose.connect("mongodb://127.0.0.1:27017/ClubDB"); // view engine setup
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use(express["static"](path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/test', testRouter); // catch 404 and forward to error handler
+app.use('/club', clubRouter); // catch 404 and forward to error handler
 
 app.use(function (req, res, next) {
   next(createError(404));

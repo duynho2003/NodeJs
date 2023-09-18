@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  h1= title
+  h1 
+    a(href="/club") Back to index
+  div 
+    |Club Name:
+    h2= clubs.name 
+    |Image:
+    br
+    img(src="/images/" + clubs.image, alt="img_product", width='200px')

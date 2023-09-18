@@ -4,7 +4,7 @@ var express = require('express');
 
 var router = express.Router();
 
-var TestModel = require('../models/test.model');
+var TestModel = require('../models/club.model');
 /* GET home page. */
 
 
